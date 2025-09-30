@@ -2,9 +2,10 @@ package Deutsche.FindAged.service;
 
 import Deutsche.FindAged.entity.User;
 import Deutsche.FindAged.repo.UserRepository;
+import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,15 +19,12 @@ import java.util.List;
 
 
 @Service
-@Transactional
+@Log4j2
 public class UserService {
 
-    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    UserRepository userRepository;
 
     /**
      * Get all users older than 25
@@ -62,6 +60,7 @@ public class UserService {
     /**
      * Create a new user
      */
+    @Transactional
     public User createUser(User user) {
         if (user.getAge() < 0) {
             throw new IllegalArgumentException("Age cannot be negative");
@@ -85,6 +84,7 @@ public class UserService {
     /**
      * Update user
      */
+    @Transactional
     public User updateUser(Long id, User userDetails) {
         User user = getUserById(id);
         user.setName(userDetails.getName());
@@ -96,6 +96,7 @@ public class UserService {
     /**
      * Delete user by ID
      */
+    @Transactional
     public void deleteUser(Long id) {
         User user = getUserById(id);
         userRepository.delete(user);
