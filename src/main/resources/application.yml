@@ -1,27 +1,52 @@
+spring.output.ansi.enabled: always
 spring:
   application.name: FindAged
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+  profiles.active: dev
 
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+dirLog: /opt/logs/deutsche
 
+spring.main.banner-mode: off
 # Logging for debugging
 logging:
+  file.clean-history-on-start: true
+#  pattern.console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+#  pattern.console: " %-5level %logger{36} - %msg%n"
+  pattern.console: "%M - %msg%n"
+  pattern.file: "%msg%n"
+
+  path: ${dirLog}
+  file.name: ${dirLog}/deutsche.log
+  pattern.rolling-file-name: ${dirLog}/%d{yyyyMMdd}/deutsche.%d{yyyyMMdd}.%i.log.gz
+  file.max-size: 100MB
+  file.max-history: 15
   level:
-    com.example: DEBUG
-    org.hibernate.SQL: DEBUG
+    Deutsche.FindAged: debug
+
+    org.springframework.web: debug
+#    org.springframework.boot: trace
+#    com.zaxxer.hikari: debug
+    org.h2: debug
+
+    # Disable Spring JDBC logging
+    org.springframework.jdbc: debug
+#    org.springframework.jdbc.core: debug
+#    org.springframework.boot.jdbc: debug
+
+    org.springframework.jdbc.core.JdbcTemplate: debug
+#    org.springframework.jdbc.core.StatementCreatorUtils: trace
+#    org.springframework.jdbc.core: debug
+#    org.hibernate: warn
+#    org.hibernate.SQL: warn
+
+    org.hibernate.SQL: debug
+    #    org.hibernate.type.descriptor.sql.BasicBinder: trace
+    #    org.hibernate.orm.jdbc.bind: trace
+#    org.springframework.orm.jpa: warn
+#    org.springframework.transaction: warn
+
+    root: info
+
+spring-doc:
+  packages-to-scan: Deutsche.FindAged.controller, Deutsche.FindAged.entity
+

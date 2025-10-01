@@ -13,10 +13,12 @@ import Deutsche.FindAged.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 
 @Component
+@ActiveProfiles( {"dev","test"} )
 public class DataInitializer  implements CommandLineRunner  {
 
     @Autowired
