@@ -78,8 +78,8 @@ public class StudentGrade {
                 }
             }
 
-//            return pq.stream().map(Student::name).toList();
-            return set.stream().map(Student::name).toList();
+            return pq.stream().map(Student::name).toList();
+//            return set.stream().map(Student::name).toList();
 
         }
     }
